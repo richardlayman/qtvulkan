@@ -17,10 +17,10 @@ The plan is to port the rotating cube demo, as well as have a Qt Widget that con
 If you would like to build the project using CMake instead of qmake, follow the below instructions
 
 ```
- cd build
- ./build.sh
- cd cube/
- qtvulkan_cube
+ $ cd build
+ $ ./build.sh
+ $ cd cube/
+ $ qtvulkan_cube
 ```
 
 ## known issues:
