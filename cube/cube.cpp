@@ -36,7 +36,10 @@
 #include <QResizeEvent>
 
 #include <QtMath>
-#include <qpa/qplatformnativeinterface.h>
+//#include <qpa/qplatformnativeinterface.h>
+// TODO - I need to fix this below line so that you can build using the above line
+#include <QtGui/5.6.0/QtGui/qpa/qplatformnativeinterface.h>
+
 
 static PFN_vkGetDeviceProcAddr g_gdpa = NULL;
 
@@ -1343,7 +1346,7 @@ VkShaderModule Demo::prepare_vs() {
     char *vertShaderCode;
     size_t size;
 
-    vertShaderCode = demo_read_spv("cube-vert.spv", &size);
+    vertShaderCode = demo_read_spv("shaders/cube-vert.spv", &size);
 
     assert(vertShaderCode);
     m_vert_shader_module =
@@ -1360,7 +1363,7 @@ VkShaderModule Demo::prepare_fs() {
     char *fragShaderCode;
     size_t size;
 
-    fragShaderCode = demo_read_spv("cube-frag.spv", &size);
+    fragShaderCode = demo_read_spv("shaders/cube-frag.spv", &size);
     assert(fragShaderCode);
     m_frag_shader_module =
         prepare_shader_module(fragShaderCode, size);

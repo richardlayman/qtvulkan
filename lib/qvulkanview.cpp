@@ -5,7 +5,10 @@
 #include <QApplication>
 #include <QStringList>
 #include "qvulkaninstance.h"
-#include <qpa/qplatformnativeinterface.h>
+//#include <qpa/qplatformnativeinterface.h>
+// TODO - I need to fix this below line so that you can build using the above line
+#include <QtGui/5.6.0/QtGui/qpa/qplatformnativeinterface.h>
+
 
 QVulkanInstance* QVulkanView::s_vulkanInstance = nullptr;
 

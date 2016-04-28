@@ -13,5 +13,15 @@ Also make sure the include and library paths in cube.pro and lib.pro are correct
 
 The plan is to port the rotating cube demo, as well as have a Qt Widget that contains a lot of the boilerplate for vulkan setup.
 
+# building with CMake
+If you would like to build the project using CMake instead of qmake, follow the below instructions
+
+```
+ cd build
+ ./build.sh
+ cd cube/
+ qtvulkan_cube
+```
+
 ## known issues:
 * resizing is stuck after one resize event
