@@ -1,5 +1,7 @@
 # qtvulkan
 
+![Example Cube](https://raw.githubusercontent.com/richardlayman/qtvulkan/master/example.png)
+
 compiles, runs, shows rotating cube!
 
 requires setting VK_LAYER_PATH and LD_LIBRARY_PATH, e.g.
