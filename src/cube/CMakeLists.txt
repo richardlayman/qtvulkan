@@ -1,4 +1,3 @@
-SET(CMAKE_AUTOMOC ON)
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 SET(CMAKE_CXX_LINK_FLAGS "-lvulkan")
@@ -21,7 +20,7 @@ FIND_PACKAGE(Qt5Core REQUIRED)
 #FIND_PACKAGE(Qt5Quick REQUIRED)
 #FIND_PACKAGE(Qt5Qml REQUIRED)
 
-SET(qtvulkan_cube_SRCS
+SET(cube_SRCS
  cube.cpp
 )
 
@@ -32,7 +31,7 @@ INCLUDE_DIRECTORIES(${Qt5Gui_INCLUDE_DIRS}
     #${Qt5Qml_INCLUDE_DIRS}
 )
 
-SET(qtvulkan_cube_LIBS
+SET(cube_LIBS
  ${Qt5Widgets_LIBRARIES}
  ${Qt5Quick_LIBRARIES}
  ${Qt5Core_LIBRARIES}
@@ -40,7 +39,7 @@ SET(qtvulkan_cube_LIBS
  #${QT5Qml_LIBRARIES}
 )
 
-ADD_EXECUTABLE(qtvulkan_cube ${qtvulkan_cube_SRCS} ${qtvulkan_cube_MOC_SRCS})
+ADD_EXECUTABLE(cube ${cube_SRCS})
 
 SET_TARGET_PROPERTIES(qtvulkan_cube
     PROPERTIES
@@ -48,7 +47,7 @@ SET_TARGET_PROPERTIES(qtvulkan_cube
     CMAKE_CXX_STANDARD_REQUIRED ON
 )
 
-TARGET_LINK_LIBRARIES(qtvulkan_cube "-lvulkan" ${qtvulkan_cube_LIBS})
+#TARGET_LINK_LIBRARIES(qtvulkan_cube "-lvulkan" ${qtvulkan_cube_LIBS})
 
 # INSTALL
 #INSTALL( TARGETS qtvulkan_cube RUNTIME DESTINATION /usr/local/qtvulkan)
