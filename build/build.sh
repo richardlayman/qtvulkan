@@ -8,6 +8,5 @@ cmake ..
 make
 
 # post work for assets
-mkdir cube/shaders
-cp ../cube/*.spv cube/shaders
+cp ../cube/*.spv cube
 cp ../cube/lunarg.ppm cube
