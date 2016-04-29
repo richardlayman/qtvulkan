@@ -8,5 +8,5 @@ cmake ..
 make
 
 # post work for assets
-#cp ../cube/*.spv cube
-#cp ../cube/lunarg.ppm cube
+cp ../src/cube/*.spv src/cube
+cp ../src/cube/lunarg.ppm src/cube

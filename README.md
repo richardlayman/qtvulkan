@@ -21,8 +21,8 @@ If you would like to build the project using CMake instead of qmake, follow the 
 ```
  $ cd build
  $ ./build.sh
- $ cd cube/
- $ qtvulkan_cube
+ $ cd src/cube/
+ $ ./cube
 ```
 
 ## known issues:
