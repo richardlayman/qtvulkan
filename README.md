@@ -13,8 +13,11 @@ If you would like to build the project using CMake instead of qmake, follow the 
  $ cd src/cube/
  // run the C++ cube demo
  $ ./cube
+ // run the Qml cube demo
+ $ cd src/qml/
+ $ ./qml
 ```
 
 ## known issues:
 * resizing is stuck after one resize event
-* qml builds but does not displays a black screen - will add instructions once working
+* In qml I have to resize the window to display the contents 
