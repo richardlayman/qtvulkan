@@ -1,9 +1,11 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QGuiApplication>
 #include <QtQuick/QQuickView>
 #include <Qt3DInput/QInputAspect>
 #include <Qt3DQuick/QQmlAspectEngine>
-#include "window.h"
+#include <QTimer>
+#include "cube.h"
 
 int main(int argc, char **argv)
 {

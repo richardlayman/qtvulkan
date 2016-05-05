@@ -30,7 +30,7 @@
 #include <signal.h>
 #include <QTimer>
 
-#include <window.h>
+#include <cube.h>
 #include <QApplication>
 #include <QMessageBox>
 #include <QResizeEvent>
@@ -209,27 +209,6 @@ BreakCallback(VkFlags msgFlags, VkDebugReportObjectTypeEXT objType,
 static void demo_create_xcb_window(struct Demo *demo);
 static void demo_run_xcb(struct Demo *demo);
 
-/*
-int main(int argc, char **argv) {
-    setvbuf(stdout, NULL, _IONBF, 0);
-    DEBUG_ENTRY;
-    QGuiApplication app(argc, argv);
-    Demo demo;
-    demo.show();
-
-    demo.resize(500,500);
-    demo.init_vk();
-    demo.init_vk_swapchain();
-    demo.prepare();
-    QTimer t;
-    t.setInterval(16);
-    QObject::connect(&t, &QTimer::timeout, &demo, &Demo::redraw );
-    t.start();
-    app.exec();
-
-    return validation_error;
-}
-*/
 
 Demo::Demo() :
     m_surface(0),
@@ -497,8 +476,8 @@ void Demo::draw_build_cmd(VkCommandBuffer cmd_buf) {
 
     VkRect2D scissor {};
     memset(&scissor, 0, sizeof(scissor));
-    scissor.extent.width = (uint32_t)qMax(0, width());
-    scissor.extent.height = (uint32_t)qMax(0, height());
+    scissor.extent.width = (uint32_t)width();
+    scissor.extent.height = (uint32_t)height();
     scissor.offset.x = 0;
     scissor.offset.y = 0;
     vkCmdSetScissor(cmd_buf, 0, 1, &scissor);
@@ -677,7 +656,8 @@ void Demo::prepare_buffers() {
     } else {
         // If the surface size is defined, the swap chain size must match
         swapchainExtent = surfCapabilities.currentExtent;
-        resize(surfCapabilities.currentExtent.width, surfCapabilities.currentExtent.height); // FIXME why
+        //resize(surfCapabilities.currentExtent.width, surfCapabilities.currentExtent.height); // FIXME why
+        resize_window(surfCapabilities.currentExtent.width, surfCapabilities.currentExtent.height); // FIXME why
     }
 
     // If mailbox mode is available, use it, as is the lowest-latency non-
@@ -815,8 +795,8 @@ void Demo::prepare_depth() {
         image.pNext = NULL;
         image.imageType = VK_IMAGE_TYPE_2D;
         image.format = depth_format;
-        image.extent.width = width();
-        image.extent.height = height();
+        image.extent.width = window()->width();
+        image.extent.height = window()->height();
         image.extent.depth = 1;
         image.mipLevels = 1;
         image.arrayLayers = 1;
@@ -824,6 +804,8 @@ void Demo::prepare_depth() {
         image.tiling = VK_IMAGE_TILING_OPTIMAL;
         image.usage = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
         image.flags = 0;
+
+    //std::cout << "prepare_depth() width:" << window()->width() << " height:" << window()->height() << std::endl;
 
     VkImageViewCreateInfo view = {};
         view.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -1795,14 +1777,25 @@ VkBool32 Demo::check_layers(uint32_t check_count, const char **check_names,
     return 1;
 }
 
-void Demo::resizeEvent(QResizeEvent *e)
+//void Demo::resizeEvent(QResizeEvent *e)
+void Demo::updateWindow()
 {
-    qDebug()<<e;
-    DEBUG_ENTRY;
+    //qDebug()<<e;
+    //DEBUG_ENTRY;
 
     resize_vk();
-    e->accept(); //FIXME?
-    QWindow::resizeEvent(e);
+    //e->accept(); //FIXME?
+    QQuickItem::update();
+    //QWindow::resizeEvent(e);
+}
+
+void Demo::resize_window(int width, int height) {
+    setHeight(height);
+    setWidth(width);
+}
+
+void Demo::show_window() {
+    window()->show();
 }
 
 void Demo::init_vk() {
@@ -2218,9 +2211,9 @@ void Demo::init_vk_swapchain() {
 
     QPlatformNativeInterface *native =  QGuiApplication::platformNativeInterface();
     Q_ASSERT(native);
-    xcb_connection_t* connection = static_cast<xcb_connection_t *>(native->nativeResourceForWindow("connection", this));
+    xcb_connection_t* connection = static_cast<xcb_connection_t *>(native->nativeResourceForWindow("connection", this->window()));
     Q_ASSERT(connection);
-    xcb_window_t xcb_window = static_cast<xcb_window_t>(winId());
+    xcb_window_t xcb_window = static_cast<xcb_window_t>(this->window()->winId());
     Q_ASSERT(xcb_window);
 
     qDebug()<<"connection and winid:"<<connection<<xcb_window;
@@ -2330,4 +2323,3 @@ void Demo::init_vk_swapchain() {
     // Get Memory information and properties
     vkGetPhysicalDeviceMemoryProperties(m_gpu, &m_memory_properties);
 }
-

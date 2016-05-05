@@ -1,10 +1,15 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#ifndef CUBE_H
+#define CUBE_H
 
 #include <QWindow>
+//#include <QQuickView>
+#include <QQuickWindow>
+#include <QQuickItem>
 #include <QMatrix4x4>
 #include <QElapsedTimer>
+#include <QTimer>
 #include <vulkan/vulkan.h>
+#include <iostream>
 
 #define DEMO_TEXTURE_COUNT 1
 
@@ -29,21 +34,27 @@ struct texture_object {
     uint32_t tex_width, tex_height;
 };
 
-class Demo : public QWindow {
+class Demo : public QQuickItem{
+
+Q_OBJECT
+
 public:
     Demo();
     ~Demo();
-    void init_vk();
-    void init_vk_swapchain();
+    Q_INVOKABLE void init_vk();
+    Q_INVOKABLE void init_vk_swapchain();
     void create_device();
     VkBool32 check_layers(uint32_t check_count, const char **check_names,
                                       uint32_t layer_count,
                                       VkLayerProperties *layers);
 
-    void resizeEvent(QResizeEvent *) override; // QWindow::resizeEvent
+    //void resizeEvent(QResizeEvent *) override; // QWindow::resizeEvent
+    void updateWindow();
+    Q_INVOKABLE void resize_window(int width, int height);
+    Q_INVOKABLE void show_window();
     void resize_vk();
     void prepare_pipeline();
-    void prepare();
+    Q_INVOKABLE void prepare();
     void draw();
     void draw_build_cmd(VkCommandBuffer cmd_buf);
     void prepare_texture_image(const char *filename, texture_object *tex_obj, VkImageTiling tiling, VkImageUsageFlags usage, VkFlags required_props);
@@ -163,6 +174,7 @@ private:
 
     uint32_t frameCount, curFrame;
     QElapsedTimer m_fpsTimer;
+    QTimer m_timer;
 };
 
 #define GET_INSTANCE_PROC_ADDR(inst, entrypoint)                               \
@@ -199,4 +211,8 @@ private:
 
 #define ERR_EXIT(err_msg, err_class) qFatal(err_msg)
 
-#endif
+
+
+
+#endif // CUBE_H
+

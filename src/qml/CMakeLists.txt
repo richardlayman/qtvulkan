@@ -1,5 +1,7 @@
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+SET(CMAKE_AUTOMOC ON)
+
 SET(CMAKE_CXX_LINK_FLAGS "-lvulkan")
 SET(CMAKE_CXX_LINK_FLAGS "-lassimp")
 SET(CMAKE_CXX_LINK_FLAGS "-lxcb")
@@ -21,7 +23,8 @@ FIND_PACKAGE(Qt5Quick REQUIRED)
 FIND_PACKAGE(Qt5Qml REQUIRED)
 
 SET(qml_SRCS
-    window.cpp
+    #window.cpp
+    cube.cpp
     main.cpp
 )
 
