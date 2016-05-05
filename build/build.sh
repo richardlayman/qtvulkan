@@ -10,3 +10,6 @@ make
 # post work for assets
 cp ../src/cube/*.spv src/cube
 cp ../src/cube/lunarg.ppm src/cube
+cp ../src/cube/*.spv src/qml
+cp ../src/cube/lunarg.ppm src/qml
+cp ../src/qml/main.qml src/qml
